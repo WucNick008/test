@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>FunBuildMCP｜核心能力全景与部署主流程</title>
+<style>
+:root{
+  --brand:#0D47A1;--brand-d:#0A3A85;--brand-dd:#062554;
+  --mid:#1E5CB8;--lite:#4A8CE8;
+  --ink:#0F1F35;--ink2:#46586E;--ink3:#8296AD;
+  --line:#D9E4F2;--line2:#B4CBE8;
+  --tint:#F0F5FC;--tint2:#E3EDF9;--page:#F7FAFD;
+}
+*{box-sizing:border-box}
+html,body{margin:0;padding:0}
+body{background:var(--page);color:var(--ink);font:14px/1.6 "Microsoft YaHei","PingFang SC",system-ui,sans-serif;-webkit-font-smoothing:antialiased}
+p{margin:0}
+.wrap{max-width:1120px;margin:0 auto;padding:22px 24px}
+
+.flow-banner{position:relative;overflow:hidden;color:#fff;border-radius:16px;padding:20px 26px 19px;display:flex;align-items:center;gap:22px;flex-wrap:wrap;
+  background:linear-gradient(122deg,#062554 0%,#0A3A85 34%,#0D47A1 72%,#2E6FD1 100%);box-shadow:0 8px 24px rgba(6,37,84,.22)}
+.flow-banner:before{content:"";position:absolute;right:-70px;top:-110px;width:340px;height:340px;border-radius:50%;background:radial-gradient(circle,rgba(255,255,255,.2),rgba(255,255,255,0) 62%)}
+.flow-banner .fb-no{flex:none;width:66px;height:66px;border-radius:16px;display:flex;align-items:center;justify-content:center;font:700 26px/1 "Consolas",monospace;background:rgba(255,255,255,.18);border:1px solid rgba(255,255,255,.38);color:#fff}
+.flow-banner .fb-main{flex:1 1 460px;min-width:0}
+.flow-banner .eyebrow{font-size:10.5px;letter-spacing:.2em;font-weight:700;color:rgba(255,255,255,.7);margin-bottom:6px}
+.flow-banner h2{font-size:21px;line-height:1.3;margin:0}
+.flow-banner p{margin:8px 0 0;font-size:12.5px;color:rgba(255,255,255,.88)}
+.flow-banner .fb-tags{flex:none;display:flex;gap:8px;flex-wrap:wrap}
+.flow-banner .fb-tags span{font-size:11px;padding:4px 11px;border-radius:999px;white-space:nowrap;background:rgba(255,255,255,.16);border:1px solid rgba(255,255,255,.28);color:#fff}
+.flow-banner .fb-tags span.solid{background:#fff;color:var(--brand);border-color:#fff;font-weight:700}
+
+.main-col{max-width:1660px;margin:0 auto}
+.actor{margin-top:18px;text-align:center}
+.actor .pill{
+  display:inline-flex;align-items:center;gap:9px;padding:9px 22px;border-radius:999px;color:#fff;
+  background:linear-gradient(135deg,var(--brand-d),var(--brand));font-size:13.5px;font-weight:700;letter-spacing:.03em;
+  box-shadow:0 4px 12px rgba(6,37,84,.22);
+}
+.varrow{display:flex;justify-content:center;padding:10px 0}
+
+.zone{background:#fff;border:1px solid var(--line);border-radius:18px;overflow:hidden;box-shadow:0 1px 2px rgba(6,37,84,.05),0 8px 20px rgba(13,71,161,.07)}
+.zone-head{
+  padding:14px 26px;color:#fff;font-size:16px;font-weight:700;letter-spacing:.04em;text-align:center;
+  background:linear-gradient(135deg,var(--brand-dd) 0%,var(--brand-d) 55%,var(--brand) 100%);
+}
+.zone-head small{display:block;margin-top:4px;font-size:11px;font-weight:400;color:rgba(255,255,255,.72);letter-spacing:.05em}
+.zone-body{padding:22px 30px 24px;background:linear-gradient(180deg,#F5F9FE 0%,#FDFEFF 100%);display:flex;flex-direction:column;gap:12px;align-items:center}
+.zline{font-size:13.5px;color:var(--ink);font-weight:600;text-align:center}
+.zline .dim{color:var(--ink2);font-weight:400}
+
+.pagefoot{margin:18px 0 4px;font-size:11.5px;color:var(--ink3);text-align:center;line-height:1.7}
+
+html.export body{background:#fff}
+html.export #export-root{width:2138px}
+html.export .wrap{max-width:none;margin:0;padding:24px}
+#__size{position:absolute;left:-9999px;top:0;visibility:hidden}
+</style>
+</head>
+<body>
+<div id="export-root">
+<div class="wrap">
+
+  <header class="flow-banner">
+    <div class="fb-no">02</div>
+    <div class="fb-main">
+      <div class="eyebrow">FUNBUILD MCP · CAPABILITIES &amp; PIPELINE</div>
+      <h2>核心能力全景与部署主流程</h2>
+      <p>开发者经 AI 编码工具调用标准 MCP Server；平台将源码自动构建为镜像并部署到 K8s；运行态由 HPA / KEDA 扩缩容治理。</p>
+    </div>
+    <div class="fb-tags">
+      <span class="solid">3 大能力区</span>
+      <span>标准 MCP Server</span>
+      <span>全链路流水线</span>
+    </div>
+  </header>
+
+  <div class="main-col">
+    <div class="actor"><span class="pill">开发者（AI 编码工具）</span></div>
+    <div class="varrow"><svg width="26" height="44" viewBox="0 0 26 44"><path d="M13 0 v28" stroke="#B4CBE8" stroke-width="3" fill="none"/><path d="M4 25 L13 42 L22 25 Z" fill="#0D47A1"/></svg></div>
+
+    <div class="zone">
+      <div class="zone-head">MCP 接入层（标准 MCP Server）<small>意图工具与原子工具两级暴露</small></div>
+      <div class="zone-body">
+        <div class="zline">意图工具<span class="dim">：deploy / rollback / scale</span></div>
+        <div class="zline">原子工具<span class="dim">：get_logs / get_metrics / set_env</span></div>
+      </div>
+    </div>
+
+    <div class="varrow"><svg width="26" height="52" viewBox="0 0 26 52"><path d="M13 0 v34" stroke="#B4CBE8" stroke-width="3.5" fill="none"/><path d="M3.5 31 L13 50 L22.5 31 Z" fill="#0D47A1"/></svg></div>
+
+    <div class="zone">
+      <div class="zone-head">构建与部署流水线<small>源码到集群的自动链路</small></div>
+      <div class="zone-body">
+        <div class="zline">源码 <span class="dim">→</span> 检测语言 <span class="dim">→</span> 生成 Dockerfile</div>
+        <div class="zline"><span class="dim">→</span> 构建镜像 <span class="dim">→</span> 安全扫描 <span class="dim">→</span> 部署 K8s</div>
+      </div>
+    </div>
+
+    <div class="varrow"><svg width="26" height="52" viewBox="0 0 26 52"><path d="M13 0 v34" stroke="#B4CBE8" stroke-width="3.5" fill="none"/><path d="M3.5 31 L13 50 L22.5 31 Z" fill="#0D47A1"/></svg></div>
+
+    <div class="zone">
+      <div class="zone-head">运行态治理<small>部署后的持续保障</small></div>
+      <div class="zone-body">
+        <div class="zline">HPA / KEDA 扩缩容<span class="dim"> · 资源监控预警</span></div>
+        <div class="zline">运行时安全扫描</div>
+      </div>
+    </div>
+  </div>
+
+  <p class="pagefoot">仅表达能力分区与主流程方向，不表达调用时序；时序细节见预览部署 / 生产发布审批时序图。</p>
+
+</div>
+</div>
+<div id="__size"></div>
+<script>
+(function(){ if(new URLSearchParams(location.search).has('export')) document.documentElement.classList.add('export');
+  var r=document.getElementById('export-root').getBoundingClientRect();
+  document.getElementById('__size').textContent='SIZE='+Math.ceil(r.width)+'x'+Math.ceil(r.height);
+})();
+</script>
+</body>
+</html>
